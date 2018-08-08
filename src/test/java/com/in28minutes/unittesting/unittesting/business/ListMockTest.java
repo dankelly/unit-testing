@@ -71,4 +71,21 @@ public class ListMockTest {
 		verify(mock).add(captor.capture());
 		assertEquals("SomeString",  captor.getValue());
 	}
+
+	@Test
+	public void TestSize_multipleArgumentCapturing() {
+		// Assume SUT performs...
+		mock.add("SomeString1");
+		mock.add("SomeString2");
+		
+		// Verification
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		// In addition to verifying the add method was implicitly called at some point in SUT,
+		// this captures whichever args were passed to the add method.
+		verify(mock, times(2)).add(captor.capture());
+		List<String> allValues = captor.getAllValues();
+		assertEquals("SomeString1",  allValues.get(0));
+		assertEquals("SomeString2",  allValues.get(1));
+	}
+
 }
