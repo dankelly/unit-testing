@@ -6,23 +6,23 @@ import org.junit.Test;
 
 import com.in28minutes.unittesting.unittesting.data.SomeDataService;
 
-public class SomeBusinessStubTest {
-
-	private class SomeDataServiceStub implements SomeDataService {
-		private int[] localData;
-		
-		public SomeDataServiceStub() {
-			localData = new int[] {};
-		}
-		
-		SomeDataServiceStub(int[] data){
-			localData = data;
-		}
-		@Override
-		public int[] retrieveAllData() {
-			return localData;
-		}
+class SomeDataServiceStub implements SomeDataService {
+	private int[] localData;
+	
+	public SomeDataServiceStub() {
+		localData = new int[] {};
 	}
+	
+	SomeDataServiceStub(int[] data){
+		localData = data;
+	}
+	@Override
+	public int[] retrieveAllData() {
+		return localData;
+	}
+}
+
+public class SomeBusinessStubTest {
 
 	@Test
 	public void calculateSumUsingDataService_basic() {
