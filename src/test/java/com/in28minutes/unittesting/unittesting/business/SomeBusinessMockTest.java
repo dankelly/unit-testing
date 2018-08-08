@@ -20,11 +20,15 @@ public class SomeBusinessMockTest {
 		int expectedResult = 6;
 		assertEquals(expectedResult, actualResult);
 	}
-/*
+
 	@Test
 	public void calculateSumUsingDataService_empty() {
 		SomeBusinessImpl business = new SomeBusinessImpl();
-		business.setSomeDataService(new SomeDataServiceStub());
+		
+		SomeDataService dataServiceMock = mock(SomeDataService.class);
+		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {});
+		business.setSomeDataService(dataServiceMock);
+		
 		int actualResult = business.calculateSumUsingDataService();
 		int expectedResult = 0;
 		assertEquals(expectedResult, actualResult);
@@ -33,10 +37,14 @@ public class SomeBusinessMockTest {
 	@Test
 	public void calculateSumUsingDataService_oneValue() {
 		SomeBusinessImpl business = new SomeBusinessImpl();
-		business.setSomeDataService(new SomeDataServiceStub(new int[] {5}));
+		
+		SomeDataService dataServiceMock = mock(SomeDataService.class);
+		when(dataServiceMock.retrieveAllData()).thenReturn(new int[] {5});
+		business.setSomeDataService(dataServiceMock);
+		
 		int actualResult = business.calculateSumUsingDataService();
 		int expectedResult = 5;
 		assertEquals(expectedResult, actualResult);
 	}
-*/
+
 }
