@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 public class ListMockTest {
 
@@ -40,10 +41,11 @@ public class ListMockTest {
 	
 	@Test
 	public void TestSize_verificationBasics() {
-		// In the code we want to test, get() is called with a parameter of 0.
+		// Somewhere in the code we want to test, get() is called with a parameter of 0.
 		// We want to verify this exact method call takes place.
 
-		// SUT  ( "system under test" )
+		// For this test we simulate a scenario where SUT  ( "system under test" )
+		// is assumed to have performed these calls.
 		String value1 = mock.get(0);
 		String value2 = mock.get(1);
 		
@@ -57,4 +59,16 @@ public class ListMockTest {
 		verify(mock, never()).get(2);
 	}
 
+	@Test
+	public void TestSize_argumentCapturing() {
+		// Assume SUT performs...
+		mock.add("SomeString");
+		
+		// Verification
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		// In addition to verifying the add method was implicitly called at some point in SUT,
+		// this captures whichever arg was passed to the add method.
+		verify(mock).add(captor.capture());
+		assertEquals("SomeString",  captor.getValue());
+	}
 }
