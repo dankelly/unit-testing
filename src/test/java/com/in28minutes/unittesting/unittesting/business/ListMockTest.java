@@ -13,34 +13,34 @@ public class ListMockTest {
 	List<String> mock = mock(List.class);
 
 	@Test
-	public void TestSize_basic() {
+	public void testSize_basic() {
 		when(mock.size()).thenReturn(5);
 		assertEquals(5, mock.size());
 	}
 
 	@Test
-	public void TestSize_returnDifferentValues() {
+	public void testSize_returnDifferentValues() {
 		when(mock.size()).thenReturn(5).thenReturn(10);
 		assertEquals(5, mock.size());
 		assertEquals(10, mock.size());
 	}
 	
 	@Test
-	public void TestSize_returnWithParameters() {
+	public void testSize_returnWithParameters() {
 		when(mock.get(0)).thenReturn("in28Minutes");
 		assertEquals("in28Minutes", mock.get(0));
 		assertEquals(null, mock.get(1));
 	}
 	
 	@Test
-	public void TestSize_returnWithGenericParameters() {
+	public void testSize_returnWithGenericParameters() {
 		when(mock.get(anyInt())).thenReturn("in28Minutes");
 		assertEquals("in28Minutes", mock.get(0));
 		assertEquals("in28Minutes", mock.get(1));
 	}
 	
 	@Test
-	public void TestSize_verificationBasics() {
+	public void testSize_verificationBasics() {
 		// Somewhere in the code we want to test, get() is called with a parameter of 0.
 		// We want to verify this exact method call takes place.
 
@@ -60,7 +60,7 @@ public class ListMockTest {
 	}
 
 	@Test
-	public void TestSize_argumentCapturing() {
+	public void testSize_argumentCapturing() {
 		// Assume SUT performs...
 		mock.add("SomeString");
 		
@@ -73,7 +73,7 @@ public class ListMockTest {
 	}
 
 	@Test
-	public void TestSize_multipleArgumentCapturing() {
+	public void testSize_multipleArgumentCapturing() {
 		// Assume SUT performs...
 		mock.add("SomeString1");
 		mock.add("SomeString2");
