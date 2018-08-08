@@ -28,6 +28,13 @@ public class ListMockTest {
 	public void TestSize_returnWithParameters() {
 		when(mock.get(0)).thenReturn("in28Minutes");
 		assertEquals("in28Minutes", mock.get(0));
+		assertEquals(null, mock.get(1));
+	}
+	
+	@Test
+	public void TestSize_returnWithGenericParameters() {
+		when(mock.get(anyInt())).thenReturn("in28Minutes");
+		assertEquals("in28Minutes", mock.get(0));
 		assertEquals("in28Minutes", mock.get(1));
 	}
 
