@@ -3,10 +3,13 @@ package com.in28minutes.unittesting.unittesting.business;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
+import ch.qos.logback.core.pattern.util.AlmostAsIsEscapeUtil;
 
 public class ListMockTest {
 
@@ -86,6 +89,47 @@ public class ListMockTest {
 		List<String> allValues = captor.getAllValues();
 		assertEquals("SomeString1",  allValues.get(0));
 		assertEquals("SomeString2",  allValues.get(1));
+	}
+	
+	@Test
+	public void testSize_mocking() {
+		ArrayList arrayListMock = mock(ArrayList.class);
+		System.out.println(arrayListMock.get(0));	// ==> null (default)
+		System.out.println(arrayListMock.size());	// ==> 0    (default)
+		
+		// Mocks do NOT retain original behavior of the class they mock!
+		arrayListMock.add("Test");
+		arrayListMock.add("Test2");
+		System.out.println(arrayListMock.size());	// ==> still 0!
+		
+		// b/c remember this is how they "implement" behavior:
+		when(arrayListMock.size()).thenReturn(5);
+		System.out.println(arrayListMock.size());	// ==> 5
+		
+	}
+	
+	@Test
+	public void testSize_spying() {
+		// Spies, however, *DO* retain original implementation by default
+		ArrayList arrayListSpy = spy(ArrayList.class);
+		arrayListSpy.add("Test0");
+		System.out.println(arrayListSpy.get(0)); // would have thrown exception without previous add()
+		System.out.println(arrayListSpy.size());
+		
+		arrayListSpy.add("Test1");
+		arrayListSpy.add("Test2");
+		System.out.println(arrayListSpy.size()); // ==> 3
+												 // override imminent...
+		when(arrayListSpy.size()).thenReturn(5);
+		System.out.println(arrayListSpy.size()); // ==> 5
+		
+		// size() implementation has been overridden and no longer reports real size
+		arrayListSpy.add("Test3");
+		System.out.println(arrayListSpy.size()); // ==> 5, still
+		
+		// There is no actual fifth element, though,
+		// so this would throw an IndexOutOfBoundsException.
+		//System.out.println(arrayListSpy.get(4));
 	}
 
 }
