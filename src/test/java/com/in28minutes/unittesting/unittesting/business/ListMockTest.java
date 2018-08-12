@@ -9,8 +9,6 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import ch.qos.logback.core.pattern.util.AlmostAsIsEscapeUtil;
-
 public class ListMockTest {
 
 	List<String> mock = mock(List.class);
@@ -49,8 +47,8 @@ public class ListMockTest {
 
 		// For this test we simulate a scenario where SUT  ( "system under test" )
 		// is assumed to have performed these calls.
-		String value1 = mock.get(0);
-		String value2 = mock.get(1);
+		mock.get(0);
+		mock.get(1);
 		
 		// Verify
 		verify(mock).get(0);  // implicit times(1)
@@ -93,7 +91,7 @@ public class ListMockTest {
 	
 	@Test
 	public void testSize_mocking() {
-		ArrayList arrayListMock = mock(ArrayList.class);
+		ArrayList<String> arrayListMock = mock(ArrayList.class);
 		System.out.println(arrayListMock.get(0));	// ==> null (default)
 		System.out.println(arrayListMock.size());	// ==> 0    (default)
 		
@@ -111,7 +109,7 @@ public class ListMockTest {
 	@Test
 	public void testSize_spying() {
 		// Spies, however, *DO* retain original implementation by default
-		ArrayList arrayListSpy = spy(ArrayList.class);
+		ArrayList<String> arrayListSpy = spy(ArrayList.class);
 		arrayListSpy.add("Test0");
 		System.out.println(arrayListSpy.get(0)); // would have thrown exception without previous add()
 		System.out.println(arrayListSpy.size());
